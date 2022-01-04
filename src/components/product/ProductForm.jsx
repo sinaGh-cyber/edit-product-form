@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 
-import { useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form'
 
 const ProductForm = ({ onSubmit }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm()
 
   return (
     <form onSubmit={handleSubmit((data) => onSubmit(data))}>
@@ -86,7 +86,7 @@ const ProductForm = ({ onSubmit }) => {
         افزودن محصول
       </button>
     </form>
-  );
-};
+  )
+}
 
-export default ProductForm;
+export default ProductForm

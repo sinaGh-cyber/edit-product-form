@@ -1,7 +1,6 @@
 import ProductForm from 'components/product/ProductForm';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 
 const EditProduct = () => {
   const { id } = useParams();

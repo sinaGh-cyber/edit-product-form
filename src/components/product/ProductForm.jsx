@@ -10,25 +10,23 @@ const ProductForm = ({ paramId, onSubmit, mode }) => {
     setValue,
   } = useForm();
 
-  const getData = (ParamId) => {
-    axios
-      .get(`http://localhost:8000/products/${ParamId}`)
-      .then(({ data }) => {
-        setValue('name', data.name);
-        setValue('price', data.price);
-        setValue('category', data.category);
-        setValue('description', data.description);
-      })
-      .catch((error) => {
-        throw error;
-      });
-  };
-
   useEffect(() => {
+    const getData = (ParamId) => {
+      axios
+        .get(`http://localhost:8000/products/${ParamId}`)
+        .then(({ data }) => {
+          setValue('name', data.name);
+          setValue('price', data.price);
+          setValue('category', data.category);
+          setValue('description', data.description);
+        })
+        .catch((error) => {
+          throw error;
+        });
+    };
     getData(paramId);
-  }, []);
+  }, [paramId, setValue]);
 
-  
   return (
     <form onSubmit={handleSubmit((data) => onSubmit(data))}>
       <div className="row">

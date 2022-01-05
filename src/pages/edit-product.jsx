@@ -1,9 +1,15 @@
-import ProductForm from 'components/product/ProductForm'
-import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import ProductForm from 'components/product/ProductForm';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const EditProduct = () => {
-  const onSubmit = (data) => {}
+  const { id } = useParams();
+  const onSubmit = (data) => {
+    axios.put(`http://localhost:8000/products/${id}`, data).catch((error) => {
+      throw error;
+    });
+  };
 
   return (
     <div className="card">
@@ -11,10 +17,10 @@ const EditProduct = () => {
         ویرایش محصول
       </div>
       <div className="card-body">
-        <ProductForm onSubmit={onSubmit} mode="edit" />
+        <ProductForm paramId={id} onSubmit={onSubmit} mode="edit" />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default EditProduct
+export default EditProduct;

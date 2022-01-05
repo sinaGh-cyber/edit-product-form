@@ -1,14 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import axios from 'axios';
+import { useForm } from 'react-hook-form';
 
-import { useForm } from 'react-hook-form'
-
-const ProductForm = ({ onSubmit }) => {
+const ProductForm = ({ paramId, onSubmit, mode }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+    setValue,
+  } = useForm();
 
+  const getData = (ParamId) => {
+    axios
+      .get(`http://localhost:8000/products/${ParamId}`)
+      .then(({ data }) => {
+        setValue('name', data.name);
+        setValue('price', data.price);
+        setValue('category', data.category);
+        setValue('description', data.description);
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+
+  useEffect(() => {
+    getData(paramId);
+  }, []);
+
+  
   return (
     <form onSubmit={handleSubmit((data) => onSubmit(data))}>
       <div className="row">
@@ -83,10 +103,10 @@ const ProductForm = ({ onSubmit }) => {
         className="btn btn-primary mt-4 float-start"
         data-testid="submit-button"
       >
-        افزودن محصول
+        {mode === 'edit' ? 'ویرایش محصول' : 'افزودن محصول'}
       </button>
     </form>
-  )
-}
+  );
+};
 
-export default ProductForm
+export default ProductForm;
